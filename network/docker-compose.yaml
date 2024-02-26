@@ -8,9 +8,20 @@ services:
       - "53:53/tcp"
       - "53:53/udp"
       - "67:67/udp"
-      - "80:80/tcp"
-      - "443:443/tcp"
+      - "8083:80/tcp"
+      - "444:443/tcp"
     volumes:
        - './pihole/etc-pihole:/etc/pihole'
        - './pihole/etc-dnsmasq.d:/etc/dnsmasq.d'
     restart: unless-stopped
+    
+  homarr:
+      container_name: homarr
+      image: ghcr.io/ajnart/homarr:latest
+      restart: unless-stopped
+      volumes:
+        - ./homarr/configs:/app/data/configs
+        - ./homarr/icons:/app/public/icons
+        - ./homarr/data:/data
+      ports:
+        - '80:7575'
