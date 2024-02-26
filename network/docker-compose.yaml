@@ -12,9 +12,6 @@ services:
       - "443:443/tcp"
     env_file:
       - pihole.env
-    environment:
-      TZ: 'Your_Timezone'
-      WEBPASSWORD: 'Your_Password'
     volumes:
        - './pihole/etc-pihole:/etc/pihole'
        - './pihole/etc-dnsmasq.d:/etc/dnsmasq.d'
