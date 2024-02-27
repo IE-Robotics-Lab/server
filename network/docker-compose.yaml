@@ -15,7 +15,7 @@ services:
       - 'pihole-dnsmasq:/etc/dnsmasq.d'
     # env fils
     env_file:
-      - /home/dion/env/pihole.env
+      - /env/pihole.env
     restart: unless-stopped
 
   homarr:
@@ -23,7 +23,7 @@ services:
     image: ghcr.io/ajnart/homarr:latest
     restart: unless-stopped
     env_file:
-      - /home/dion/env/homarr.env
+      - /env/homarr.env
     volumes:
       - 'homarr-configs:/app/data/configs'
       - 'homarr-icons:/app/public/icons'
