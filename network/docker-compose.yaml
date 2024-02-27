@@ -11,17 +11,29 @@ services:
       - "8083:80/tcp"
       - "444:443/tcp"
     volumes:
-       - './pihole/etc-pihole:/etc/pihole'
-       - './pihole/etc-dnsmasq.d:/etc/dnsmasq.d'
+      - 'pihole-etc:/etc/pihole'
+      - 'pihole-dnsmasq:/etc/dnsmasq.d'
+    # env fils
+    env_file:
+      - /home/dion/env/pihole.env
     restart: unless-stopped
-    
+
   homarr:
-      container_name: homarr
-      image: ghcr.io/ajnart/homarr:latest
-      restart: unless-stopped
-      volumes:
-        - ./homarr/configs:/app/data/configs
-        - ./homarr/icons:/app/public/icons
-        - ./homarr/data:/data
-      ports:
-        - '80:7575'
+    container_name: homarr
+    image: ghcr.io/ajnart/homarr:latest
+    restart: unless-stopped
+    env_file:
+      - /home/dion/env/homarr.env
+    volumes:
+      - 'homarr-configs:/app/data/configs'
+      - 'homarr-icons:/app/public/icons'
+      - 'homarr-data:/data'
+    ports:
+      - '80:7575'
+
+volumes:
+  pihole-etc:
+  pihole-dnsmasq:
+  homarr-configs:
+  homarr-icons:
+  homarr-data:
