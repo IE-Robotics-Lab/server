@@ -41,7 +41,7 @@ services:
       # For the web front-end
       - "17170:17170"
     volumes:
-      - "lldap_data:/data"
+      - "lldap_data:/"
       # Alternatively, you can mount a local folder
       # - "./lldap_data:/data"
     env_file:
