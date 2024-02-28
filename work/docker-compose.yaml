@@ -11,14 +11,16 @@ services:
     ports:
       - "8088:80"
     volumes:
+      - /env/sharelatex.env:/etc/sharelatex/settings.env
       - ~/sharelatex_data:/var/lib/sharelatex
     env_file:
-      - /env/sharelatex.env
+      - sharelatex.env
 
   sharelatex-mongo:
     restart: unless-stopped
     image: mongo:4.0
     container_name: sharelatex-mongo
+    command: ["--replSet", "rs0"] # Configuring as a single-node replica set
     volumes:
       - ~/sharelatex_mongo_data:/data/db
 
