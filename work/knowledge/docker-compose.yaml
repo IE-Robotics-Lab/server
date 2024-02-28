@@ -1,4 +1,4 @@
-version: "2"
+version: "3"
 services:
   bookstack:
     image: lscr.io/linuxserver/bookstack
@@ -21,3 +21,8 @@ services:
     volumes:
       - bookstack_db_data:/config
     restart: unless-stopped
+
+
+volumes:
+  bookstack_app_data:
+  bookstack_db_data:
