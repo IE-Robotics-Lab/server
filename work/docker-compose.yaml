@@ -13,7 +13,7 @@ services:
     volumes:
       - ~/sharelatex_data:/var/lib/sharelatex
     env_file:
-      - sharelatex.env
+      - /env/sharelatex.env
 
   sharelatex-mongo:
     restart: unless-stopped
