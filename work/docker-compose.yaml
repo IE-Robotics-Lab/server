@@ -11,7 +11,6 @@ services:
     ports:
       - "8088:80"
     volumes:
-      - /env/sharelatex.env:/etc/sharelatex/settings.env
       - ~/sharelatex_data:/var/lib/sharelatex
     env_file:
       - /env/sharelatex.env
