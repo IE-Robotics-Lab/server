@@ -18,6 +18,8 @@ services:
     container_name: bookstack_db
     env_file:
       - /env/bookstack_db.env
+    expose:
+      - 3306
     volumes:
       - bookstack_db_data:/config
     restart: unless-stopped
