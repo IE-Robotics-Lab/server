@@ -11,7 +11,7 @@ services:
     ports:
       - "8088:80"
     volumes:
-      - sharelatex_data:/var/lib/sharelatex
+      - "sharelatex_data:/var/lib/sharelatex"
     env_file:
       - /env/sharelatex.env
 
@@ -21,11 +21,11 @@ services:
     container_name: sharelatex-mongo
     command: ["--replSet", "rs0"] # Configuring as a single-node replica set
     volumes:
-      - sharelatex_mongo_data:/data/db
+      - "sharelatex_mongo_data:/data/db"
 
   sharelatex-redis:
     restart: unless-stopped
     image: redis:5
     container_name: sharelatex-redis
     volumes:
-      - sharelatex_redis_data:/data
+      - "sharelatex_redis_data:/data"
