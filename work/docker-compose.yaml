@@ -14,7 +14,7 @@ services:
       - /env/sharelatex.env:/etc/sharelatex/settings.env
       - ~/sharelatex_data:/var/lib/sharelatex
     env_file:
-      - sharelatex.env
+      - /env/sharelatex.env
 
   sharelatex-mongo:
     restart: unless-stopped
