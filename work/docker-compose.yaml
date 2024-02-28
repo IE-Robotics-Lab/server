@@ -3,7 +3,7 @@ version: '3'
 services:
   sharelatex:
     restart: unless-stopped
-    image: sharelatex/sharelatex:with-texlive-full
+    image: sharelatex/sharelatex
     container_name: sharelatex
     depends_on:
       - sharelatex-mongo
