@@ -30,5 +30,5 @@ services:
       - openldap
 
 volumes:
-  ldap_db:
+  ldap_data:
   ldap_config:
