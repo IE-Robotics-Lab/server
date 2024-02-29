@@ -1,3 +1,4 @@
+
 version: "3.8"
 
 services:
@@ -15,6 +16,9 @@ services:
       - LDAP_RFC2307BIS_SCHEMA=true
       - LDAP_REMOVE_CONFIG_AFTER_SETUP=true
       - LDAP_TLS_VERIFY_CLIENT=never
+    expose:
+      - 389
+      - 636
     networks:
       - openldap
 

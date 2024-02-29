@@ -39,6 +39,7 @@ services:
     volumes:
       - sharelatex_redis_data:/data
 
+
 volumes:
   sharelatex_data:
   sharelatex_mongo_data:
