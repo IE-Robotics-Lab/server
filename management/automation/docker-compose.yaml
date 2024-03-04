@@ -1,11 +1,7 @@
 
-version: '3.9'
+version: '3'
 services:
-  main:
-    build:
-      context: ./docker
-      dockerfile: Dockerfile.compose
-    entrypoint: /compose-entrypoint.sh
+  automatisch:
     ports:
       - '8017:3000'
     depends_on:
@@ -28,27 +24,7 @@ services:
       - APP_SECRET_KEY
     volumes:
       - automatisch_storage:/automatisch/storage
-  worker:
-    build:
-      context: ./docker
-      dockerfile: Dockerfile.compose
-    entrypoint: /compose-entrypoint.sh
-    depends_on:
-      - main
-    environment:
-      - APP_ENV=production
-      - REDIS_HOST=redis
-      - POSTGRES_HOST=postgres
-      - POSTGRES_DATABASE=automatisch
-      - POSTGRES_USERNAME=automatisch_user
-      - POSTGRES_PASSWORD=automatisch_password
-      - ENCRYPTION_KEY
-      - WEBHOOK_SECRET_KEY
-      - APP_SECRET_KEY
-      - WORKER=true
-    volumes:
-      - automatisch_storage:/automatisch/storage
-  postgres:
+  automatisch-postgres:
     image: 'postgres:14.5'
     environment:
       - POSTGRES_DB=automatisch
