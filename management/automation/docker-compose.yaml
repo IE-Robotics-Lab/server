@@ -14,9 +14,9 @@ services:
       redis:
         condition: service_started
     environment:
-      - HOST=localhost
+      - HOST=colossus
       - PROTOCOL=http
-      - PORT=3000
+      - PORT=8017
       - APP_ENV=production
       - REDIS_HOST=redis
       - POSTGRES_HOST=postgres
