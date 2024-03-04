@@ -13,7 +13,7 @@ Server
 	Management
 		_Automatish_
 		Homarr
-		Shelf inventory
+		Snipe-IT inventory
 ```
 
 
