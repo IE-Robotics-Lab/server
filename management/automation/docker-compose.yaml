@@ -16,7 +16,9 @@ services:
     environment:
       - HOST=localhost
       - PROTOCOL=http
-      - PORT=8017
+      - PORT=3000
+      - WEB_APP_URL=http://colossus:8017
+      - WEBHOOK_URL=http://colossus:8017
       - APP_ENV=production
       - REDIS_HOST=redis
       - POSTGRES_HOST=postgres
