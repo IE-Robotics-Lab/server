@@ -14,7 +14,7 @@ services:
       redis:
         condition: service_started
     environment:
-      - HOST=10.205.1.2
+      - HOST=localhost
       - PROTOCOL=http
       - PORT=8017
       - APP_ENV=production
