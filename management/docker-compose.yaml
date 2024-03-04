@@ -1,82 +1,24 @@
-version: '3.8'
+version: '3'
 
 services:
-  shelf:
-    image: ghcr.io/shelf-nu/shelf.nu:latest
-    container_name: shelf
-    environment:
-      - DATABASE_URL=postgres://admin:admin@localhost:5432/npbpbtroabfpvzeluvzc?pgbouncer=true
-      - DIRECT_URL=postgres://admin:admin@localhost:5432/npbpbtroabfpvzeluvzc
-
-      - SUPABASE_ANON_PUBLIC=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5wYnBidHJvYWJmcHZ6ZWx1dnpjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDg5NTUxOTEsImV4cCI6MjAyNDUzMTE5MX0.rCI92j6fSfIiH_QIq3x5EE_zFhTYnRaDlataCDWbqXw     ###
-      - SUPABASE_SERVICE_ROLE=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5wYnBidHJvYWJmcHZ6ZWx1dnpjIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcwODk1NTE5MSwiZXhwIjoyMDI0NTMxMTkxfQ.2IOHDDW1323TcreusedDd4NMM6-AskZiJPB6ULL00yA     ###
-      - SUPABASE_URL=https://npbpbtroabfpvzeluvzc.supabase.co    ###
-      - SESSION_SECRET=super-duper-s3cret
-      - SERVER_URL=http://localhost:3000    ###
-
-      - SMTP_HOST=smtp.yourhost.com
-      - SMTP_USER=you@example.com
-      - SMTP_PWD=yourSMTPpassword
-
-      - ENABLE_PREMIUM_FEATURES=true
-
-      - MAPTILER_TOKEN=maptiler-token                ###
-      - MICROSOFT_CLARITY_ID=microsoft-clarity-id
-
-      - INVITE_TOKEN_SECRET=secret-test-invite
-      - GEOCODE_API_KEY=geocode-api-key
+  snipeit:
+    image: snipe/snipe-it
     ports:
-      - "3000:8080"
-    restart: unless-stopped
+      - "9090:80" # Replace with your desired port
+    env_file:
+      - /env/snipe.env # This file should contain all the necessary environment variables
+    volumes:
+      - snipe-vol:/var/lib/snipeit
+    depends_on:
+      - snipe-mysql
 
-  postgres:
-    image: postgres:13
-    container_name: postgres
-    environment:
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: admin
-      POSTGRES_DB: shelf
-    ports:
-      - "6543:5432"
-    restart: unless-stopped
+  snipe-mysql:
+    image: mysql:5.6 # or another version if you prefer
+    env_file:
+      - /env/snipe-sql.env # MySQL related environment variables
+    volumes:
+      - snipesql-vol:/var/lib/mysql
 
-  pgbouncer:
-    image: edoburu/pgbouncer
-    container_name: pgbouncer
-    environment:
-      - DATABASE_URL=postgres://admin:admin@localhost:5432/shelf    ###
-      - POOL_MODE=session
-      - MAX_CLIENT_CONN=100
-      - DEFAULT_POOL_SIZE=20
-      - MIN_POOL_SIZE=10
-      - RESERVE_POOL_SIZE=5
-      - RESERVE_POOL_TIMEOUT=5
-      - SERVER_RESET_QUERY=DISCARD ALL
-      - SERVER_IDLE_TIMEOUT=60
-      - SERVER_CONNECT_TIMEOUT=15
-      - SERVER_LOGIN_RETRY=3
-      - SERVER_ROUND_ROBIN=1
-      - SERVER_CHECK_DELAY=30
-      - SERVER_CHECK_QUERY=SELECT 1
-      - SERVER_LIFETIME=3600
-      - LOG_CONNECTIONS=1
-      - LOG_DISCONNECTIONS=1
-      - LOG_POOLER_ERRORS=1
-      - STATS_PERIOD=60
-      - VERBOSE=1
-    ports:
-      - "6432:6432"
-    restart: unless-stopped
-
-  supabase:
-    image: supabase/postgres:latest
-    container_name: supabase
-    environment:
-      - POSTGREST_SERVER_PORT=3001
-      - POSTGREST_SERVER_PROXY_URI=http://localhost:3000
-      - POSTGREST_JWT_SECRET=super-duper-s3cret
-      - POSTGRES_PASSWORD=admin
-      - DATABASE_CONNECTION_MODE=transaction
-    ports:
-      - "3001:3001"
-    restart: unless-stopped
+volumes:
+  snipe-vol:
+  snipesql-vol:
