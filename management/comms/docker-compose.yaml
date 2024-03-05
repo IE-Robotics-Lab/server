@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  matterbridge:
+    image: schklom/matterbridge:latest
+    volumes:
+      - /env/matterbridge.toml:/matterbridge.toml
+    restart: unless-stopped
