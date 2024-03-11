@@ -12,4 +12,4 @@ services:
       - "8123:8123"
 
 volumes:
-  homeassistant
+  homeassistant:
