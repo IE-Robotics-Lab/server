@@ -35,7 +35,7 @@ services:
 
   # try out freeipa
   freeipa:
-      image: freeipa/freeipa-server
+      image: freeipa/freeipa-server:fedora-39-4.11.1
       container_name: freeipa
       environment:
         - IPA_SERVER_HOSTNAME=colossus
