@@ -18,6 +18,7 @@ services:
     volumes:
       - ldap_data:/var/lib/ldap
       - ldap_config:/etc/ldap/slapd.d
+      - /home/dion/ldapadd:/etc/openldap/slapd.d
     ports:
       - "389:389"
       - "636:636"
