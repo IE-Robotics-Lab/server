@@ -35,7 +35,7 @@ services:
 
   # try out freeipa
   freeipa:
-      image: freeipa/freeipa-server:centos-8
+      image: freeipa/freeipa-server
       container_name: freeipa
       environment:
         - IPA_SERVER_HOSTNAME=colossus
