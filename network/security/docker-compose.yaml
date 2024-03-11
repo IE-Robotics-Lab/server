@@ -1,37 +1,56 @@
 version: "3.8"
 
 services:
-  openldap:
-    image: osixia/openldap:latest
-    container_name: openldap
-    environment:
-      - LDAP_ORGANISATION=roboticslab
-      - LDAP_DOMAIN=lab.local
-      - LDAP_ADMIN_PASSWORD=admin
-      - LDAP_CONFIG_PASSWORD=config
-      - LDAP_RFC2307BIS_SCHEMA=true
-      - LDAP_REMOVE_CONFIG_AFTER_SETUP=true
-      - LDAP_TLS_VERIFY_CLIENT=never
-      - LDAP_READONLY_USER=true
-      - LDAP_READONLY_USER_USERNAME=user-ro
-      - LDAP_READONLY_USER_PASSWORD=ro_pass
-    volumes:
-      - ldap_data:/var/lib/ldap
-      - ldap_config:/etc/ldap/slapd.d
-      - /home/dion/ldapadd:/etc/openldap/slapd.d
-    ports:
-      - "389:389"
-      - "636:636"
+  # openldap:
+  #   image: osixia/openldap:latest
+  #   container_name: openldap
+  #   environment:
+  #     - LDAP_ORGANISATION=roboticslab
+  #     - LDAP_DOMAIN=lab.local
+  #     - LDAP_ADMIN_PASSWORD=admin
+  #     - LDAP_CONFIG_PASSWORD=config
+  #     - LDAP_RFC2307BIS_SCHEMA=true
+  #     - LDAP_REMOVE_CONFIG_AFTER_SETUP=true
+  #     - LDAP_TLS_VERIFY_CLIENT=never
+  #     - LDAP_READONLY_USER=true
+  #     - LDAP_READONLY_USER_USERNAME=user-ro
+  #     - LDAP_READONLY_USER_PASSWORD=ro_pass
+  #   volumes:
+  #     - ldap_data:/var/lib/ldap
+  #     - ldap_config:/etc/ldap/slapd.d
+  #     - /home/dion/ldapadd:/etc/openldap/slapd.d
+  #   ports:
+  #     - "389:389"
+  #     - "636:636"
 
-  phpldapadmin:
-    image: osixia/phpldapadmin:0.9.0
-    container_name: phpldapadmin
-    environment:
-      - PHPLDAPADMIN_LDAP_HOSTS=openldap
-    ports:
-      - 6443:443
-    depends_on:
-      - openldap
+  # phpldapadmin:
+  #   image: osixia/phpldapadmin:0.9.0
+  #   container_name: phpldapadmin
+  #   environment:
+  #     - PHPLDAPADMIN_LDAP_HOSTS=openldap
+  #   ports:
+  #     - 6443:443
+  #   depends_on:
+  #     - openldap
+
+  # try out freeipa
+  freeipa:
+      image: freeipa/freeipa-server:centos-8
+      container_name: freeipa
+      environment:
+        - IPA_SERVER_HOSTNAME=colossus
+        - IPA_SERVER_DOMAINA=colossus
+        - IPA_SERVER_PASSWORD=yaysec
+        - IPA_SERVER_DS_PASSWORD=yaysec
+      ports:
+        - "8882:80"
+        - "443:443"
+        - "389:389"
+        - "636:636"
+      volumes:
+        - "/path/to/freeipa/data:/data"
+        - "/path/to/freeipa/logs:/var/log"
+
 
 volumes:
   ldap_data:
