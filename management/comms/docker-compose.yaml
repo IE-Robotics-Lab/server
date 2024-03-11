@@ -4,5 +4,5 @@ services:
   matterbridge:
     image:  schklom/matterbridge
     volumes:
-      - /env/matterbridge.toml:/etc/matterbridge/matterbridge.toml
+      - /home/dion/env/matterbridge.toml:/etc/matterbridge/matterbridge.toml
     restart: unless-stopped
