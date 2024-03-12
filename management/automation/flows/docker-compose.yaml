@@ -5,11 +5,15 @@ services:
     image: activepieces/activepieces:latest
     container_name: activepieces
     ports:
-      - "8080:80"
+      - "8135:80"
     volumes:
-      - ~/.activepieces:/root/.activepieces
+      - activepieces:/root/.activepieces
     environment:
       - AP_QUEUE_MODE=MEMORY
       - AP_DB_TYPE=SQLITE3
       - AP_FRONTEND_URL=http://colossus:8135
     restart: unless-stopped
+
+
+volumes:
+  activepieces:
